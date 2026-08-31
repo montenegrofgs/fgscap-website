@@ -1,0 +1,14 @@
+FGS CAPITAL — LESSONS LEARNED WEBSITE UPDATE
+
+Upload these files to the ROOT of your GitHub Pages repository:
+- index.html
+- lessons-learned-01.html
+- lessons-learned-02.html
+
+Upload these two files into the existing assets/ folder:
+- assets/lessons-learned-01.png
+- assets/lessons-learned-02.png
+
+Important: keep your existing assets folder and all existing files. Do not delete the other images, video, or site assets.
+
+After commit/publish, open your site and go to the Insights section. The two new Lessons Learned cards will appear first and link to their full pages.
