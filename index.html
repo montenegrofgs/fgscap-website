@@ -118,7 +118,25 @@ section[id]{scroll-margin-top:88px}
 #golden-seed .section-head{align-items:start}
 @media(max-width:920px){#home .hero-principles{grid-template-columns:repeat(2,minmax(0,1fr))}#home .hero-principles .stat:nth-child(2){border-right:0}#featured-investments .featured-grid{grid-template-columns:1fr!important}}
 @media(max-width:560px){#home .hero-principles .stat{padding:15px 10px 10px 0}#home .hero-principles span{font-size:11px}#featured-investments .featured-image{min-height:245px;padding:20px}#featured-investments .featured-image-inner strong{font-size:36px}#purpose-highlights .purpose-visual-grid{grid-template-columns:1fr!important}#golden-seed .seed-quote{padding:23px!important}}
-</style></head>
+</style><style id="fgs-global-map-v2">
+.fgs-map-panel{margin:30px 0 38px;background:#07192c;border:1px solid rgba(185,154,91,.7);color:#fff;overflow:hidden}
+.fgs-map-top{display:flex;align-items:end;justify-content:space-between;gap:20px;padding:25px 28px 18px}
+.fgs-map-top h3{font:400 clamp(25px,3vw,36px)/1.15 Georgia,serif;margin:8px 0 0;color:#fff}
+.fgs-map-top p{max-width:420px;margin:0;font-size:13px;color:#c4d1dc}
+#fgs-world-map{height:430px;width:100%;background:#122d43;z-index:0}
+.fgs-map-fallback{padding:15px 26px;background:#102b42;color:#e8d9b7;font-size:12px;line-height:1.7}
+.fgs-map-legend{display:flex;gap:14px;flex-wrap:wrap;padding:16px 26px;color:#d3dde5;font-size:11px}
+.fgs-map-legend b{color:#e5c78a}
+.fgs-map-pin{width:15px;height:15px;border-radius:50%;background:#d6b36e;border:3px solid #07192c;box-shadow:0 0 0 2px #d6b36e}
+.fgs-map-pin.prospect{background:#91a9bb;box-shadow:0 0 0 2px #91a9bb}
+.fgs-map-panel .leaflet-popup-content-wrapper{background:#10283c;color:#fff;border:1px solid #c5a364;border-radius:3px}
+.fgs-map-panel .leaflet-popup-tip{background:#10283c}
+.fgs-map-panel .leaflet-popup-content{font:13px/1.5 Arial,sans-serif}
+.fgs-map-panel .leaflet-popup-content strong{color:#e2c48b}
+@media(max-width:700px){.fgs-map-top{display:block;padding:22px}.fgs-map-top p{margin-top:12px}#fgs-world-map{height:350px}}
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+</head>
 <body>
 <header><div class="wrap"><nav>
   <a class="brand" href="#home" aria-label="FGS Capital & Development home"><img src="fgs-capital-development-logo.svg?v=2" alt="FGS Capital & Development — Capital Advisory | Real Estate Investment" style="width:min(760px,100%);max-width:100%;height:auto;display:block" /></a>
@@ -243,7 +261,29 @@ section[id]{scroll-margin-top:88px}
 
 
 
-<section id="global" style="padding:76px 0;background:#fff"><div class="wrap"><div class="section-head"><div><div class="eyebrow">FGS Capital Advisors | Independent Partner Network</div><div style="display:inline-block;margin:9px 0 4px;padding:5px 12px;border:1px solid #b99a5b;color:#8a6b2d;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700">4C · Strategic Business Partner · Independent Company</div><h2>Global Presence. Local Execution.</h2></div><p>FGS connects cross-border capital and land opportunities with independent specialist partners. Local execution and contractual responsibilities are assessed for each mandate. Map markers represent business relationships, not necessarily offices.</p></div><div class="global-editorial" aria-label="FGS global platform, operating base and international relationships">
+<section id="global" style="padding:76px 0;background:#fff"><div class="wrap"><div class="section-head"><div><div class="eyebrow">FGS Capital Advisors | Independent Partner Network</div><div style="display:inline-block;margin:9px 0 4px;padding:5px 12px;border:1px solid #b99a5b;color:#8a6b2d;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700">4C · Strategic Business Partner · Independent Company</div><h2>Global Presence. Local Execution.</h2></div><p>FGS connects cross-border capital and land opportunities with independent specialist partners. Local execution and contractual responsibilities are assessed for each mandate. Map markers represent business relationships, not necessarily offices.</p></div><div class="fgs-map-panel" aria-label="Geographic map of FGS Capital presence and relationships">
+<div class="fgs-map-top"><div><div class="eyebrow">FGS CAPITAL · GLOBAL FOOTPRINT</div><h3>Our world, clearly mapped.</h3></div><p>A geographic view of headquarters, origination and prospective relationships. Markers indicate cities or regional reference points—not necessarily FGS offices.</p></div>
+<div id="fgs-world-map" role="application" aria-label="Interactive world map with Florida, Brazil, Angola, Democratic Republic of the Congo and Portugal"></div>
+<div class="fgs-map-fallback">United States · Florida — Headquarters &nbsp; | &nbsp; Brazil · São Paulo — Origination &nbsp; | &nbsp; Angola · Luanda — Exploratory relationships &nbsp; | &nbsp; DR Congo · Kinshasa — Exploratory relationships &nbsp; | &nbsp; Portugal · Lisbon — Prospective relationships</div>
+<div class="fgs-map-legend"><span><b>●</b> Headquarters / origination</span><span>○ Exploratory or prospective relationships</span><span>Locations are illustrative reference cities; no branch-office claim is implied.</span></div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<script>
+window.addEventListener('load',function(){
+if(!window.L)return;
+var el=document.getElementById('fgs-world-map');if(!el)return;
+var map=L.map(el,{scrollWheelZoom:false,worldCopyJump:true,zoomControl:true}).setView([6,-26],2);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap contributors &copy; CARTO',maxZoom:18}).addTo(map);
+var locations=[
+{point:[28.5383,-81.3792],title:'Florida, United States',status:'FGS Capital LLC · U.S. headquarters',type:'base'},
+{point:[-23.5505,-46.6333],title:'São Paulo, Brazil',status:'Brazilian origination and structuring activities',type:'base'},
+{point:[-8.8390,13.2894],title:'Luanda, Angola',status:'Exploratory business relationships; not an FGS office',type:'prospect'},
+{point:[-4.4419,15.2663],title:'Kinshasa, DR Congo',status:'Exploratory business relationships; not an FGS office',type:'prospect'},
+{point:[38.7223,-9.1393],title:'Lisbon, Portugal',status:'Prospective international relationships; not an FGS office',type:'prospect'}];
+locations.forEach(function(x){var icon=L.divIcon({className:'',html:'<div class="fgs-map-pin '+(x.type==='prospect'?'prospect':'')+'"></div>',iconSize:[19,19],iconAnchor:[9,9]});L.marker(x.point,{icon:icon}).addTo(map).bindPopup('<strong>'+x.title+'</strong><div>'+x.status+'</div>')});
+});
+</script>
+<div class="global-editorial" aria-label="FGS global platform, operating base and international relationships">
 <div class="global-editorial-heading"><div><span class="global-kicker">CROSS-BORDER PLATFORM · DISTINCT LOCAL ROLES</span><h3>One platform.<br><em>Multiple markets.</em></h3></div><p>We originate opportunities across borders and work with independent specialists where local expertise is essential. Our headquarters, operating activities and prospective relationships are intentionally distinguished.</p></div>
 <div class="global-feature"><div class="global-feature-number">01</div><div><span class="global-tag">HEADQUARTERS</span><h4>United States <small>Florida</small></h4><p>FGS Capital LLC · U.S. headquarters, investment origination, development advisory and international coordination.</p></div><span class="global-feature-mark" aria-hidden="true">FGS</span></div>
 <div class="global-region-grid">
